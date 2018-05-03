@@ -1,0 +1,415 @@
+﻿@model IEnumerable<Contact_API.Contact>
+@{
+    Layout ="~/Views/Shared/_Layout.cshtml";
+    //<a href="~/Views/Shared/_Layout.cshtml">~/Views/Shared/_Layout.cshtml</a>
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+            .table th
+            {
+                background-color: #F7F7F7;
+                color: #333;
+                font-weight: bold;
+            }
+
+            .table th, .table td
+            {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+    </style>
+</head>
+<body>
+    <div align="center" style="width: 50%;">
+        <fieldset>
+            <legend>Employee Contact Information</legend>
+            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                <tr>
+                    <td>First Name</td>
+                    <td>
+                        <input type="text" id="txtFirstName" required />
+                        <span id="errorfname" style="visibility: hidden; color: red;">*First Name is Required</span>
+                        </td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>
+                        <input type="text" id="txtLastName" />
+                        <span id="errorlname" style="visibility: hidden; color: red;">*Last Name is Required</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input type="text" id="txtEmail" />
+                        <span id="erroremail" style="visibility: hidden; color: red;">*Email is Required</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone no</td>
+                    <td>
+                        <input type="text" id="txtPhoneNo" onkeypress="return IsNumeric(event);" />
+                        <span id="errorphone" style="visibility: hidden; color: red;">*Enter valid phone number</span>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>Status:</td>
+                    <td>
+                        <input type="checkbox" id="chkStatus" checked="checked" style="width: 110px" disabled />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" id="btnAdd" value="Add" style="width: 80px;" align: center;/>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div></div>
+    <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+        <tr>
+            <th style="width: 70px">Contact Id</th>
+            <th style="width: 130px">First Name</th>
+            <th style="width: 130px">Last Name</th>
+            <th style="width: 150px">Email</th>
+            <th style="width: 120px">Phone No</th>
+            <th style="width: 50px">Status</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        @foreach (Contact_API.Contact contact in Model)
+        {
+            <tr>
+                <td class="ContactId">
+                    <span>@contact.ContactId</span>
+                </td>
+                <td class="FirstName">
+                    <span>@contact.FirstName</span>
+                    <input type="text" value="@contact.FirstName" style="display:none; width:150px;" />
+                </td>
+                <td class="LastName">
+                    <span>@contact.LastName</span>
+                    <input type="text" value="@contact.LastName" style="display:none; width:150px;" />
+                </td>
+                <td class="Email">
+                    <span>@contact.Email</span>
+                    <input type="text" value="@contact.Email" style="display:none; width:150px;" />
+                </td>
+                <td class="PhoneNo">
+                    <span>@contact.PhoneNo</span>
+                    <input type="text" value="@contact.PhoneNo" onkeypress="return IsNumeric(event);" style="display:none; width:150px;" />
+                </td>
+
+                <td class="Status">
+                    <span>Active</span>
+                    @* <input type="checkbox" value="@contact.Status" style="display:none" />*@
+                </td>
+                <td>
+                    <a class="Edit" href="javascript:;">Edit</a>
+                    <a class="Update" href="javascript:;" style="display: none">Update</a>
+                    <a class="Cancel" href="javascript:;" style="display: none">Cancel</a>
+                    <a class="Delete" href="javascript:;">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <!-- <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 120px">First Name<br />
+                    @* <input type="text" id="txtName" style="width:140px" />*@
+                    <input type="text" id="txtFirstName" style="width: 110px" />
+                </td>
+                <td style="width: 120px">Last Name<br />
+                    <input type="text" id="txtLastName" style="width: 110px" />
+                </td>
+                <td style="width: 120px">Email<br />
+                    <input type="text" id="txtEmail" style="width: 110px" />
+                </td>
+                <td style="width: 120px">Phone no<br />
+                    <input type="text" id="txtPhoneNo" style="width: 110px" />
+                </td>
+                @* <td style="width: 120px">
+                Country:<br />
+                <input type="text" id="txtCountry" style="width:140px" />
+            </td>*@
+                <td style="width: 120px">Status:<br />
+                    <input type="checkbox" id="chkStatus" style="width: 110px" />
+                </td>
+                <td style="width: 200px">
+                    <br />
+                    <input type="button" id="btnAdd" value="Add" />
+                </td>
+            </tr>
+        </table> -->
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+    <script type="text/javascript">
+
+        function IsNumeric(e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            var ret = ((keyCode >= 48 && keyCode <= 57));
+            document.getElementById("errorphone").style.display = ret ? "none" : "inline";
+            return ret;
+        }
+        $(function () {
+            //Remove the dummy row if data present.
+            if ($("#tblCustomers tr").length > 2) {
+                $("#tblCustomers tr:eq(1)").remove();
+            }
+        });
+        function AppendRow(row, ContactId, FirstName,LastName,Email,PhoneNo,status) {
+            //Bind CustomerId.
+            $(".ContactId", row).find("span").html(ContactId);
+
+            //Bind first Name.
+            $(".FirstName", row).find("span").html(FirstName);
+            $(".FirstName", row).find("input").val(FirstName);
+            //Bind Last Name.
+            $(".LastName", row).find("span").html(LastName);
+            $(".LastName", row).find("input").val(LastName);
+
+            $(".Email", row).find("span").html(Email);
+            $(".Email", row).find("input").val(Email);
+
+            //Bind Phone.
+            $(".PhoneNo", row).find("span").html(PhoneNo);
+            $(".PhoneNo", row).find("input").val(PhoneNo);
+
+            //Bind statsu.
+            //$(".Status", row).find("span").html(status);
+            //$(".Status", row).find("input").val(status);
+            $("#tblCustomers").append(row);
+        };
+
+        //Add event handler.
+        $("body").on("click", "#btnAdd", function () {
+            if (!validate()) {
+                return false;
+            }
+            var txtFirstName = $("#txtFirstName");
+            var txtLastName = $("#txtLastName");
+            var txtEmail = $("#txtEmail");
+            var txtPhoneNo = $("#txtPhoneNo");
+            var chkstatus = $("#chkStatus");
+             var _contact = {};
+            _contact.FirstName = txtFirstName.val();
+            _contact.LastName = txtLastName.val();
+            _contact.Email = txtEmail.val();
+            _contact.PhoneNo = txtPhoneNo.val();
+            _contact.Status = chkstatus.val();
+            $.ajax({
+                type: "POST",
+                //url: "/api/ContactsAPI/InsertCustomer",
+                url: "/api/ContactsAPI",
+                data: JSON.stringify(_contact),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    var row = $("#tblCustomers tr:last-child").clone(true);
+                    AppendRow(row, r.ContactId, r.FirstName, r.LastName, r.PhoneNo, r.status);
+                    txtFirstName.val("");
+                    txtLastName.val("");
+                    txtEmail.val("");
+                    txtPhoneNo.val("");
+                    alert("contacts added successfully");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Unable to add contact');
+                }
+            });
+        });
+
+
+        function validate() {
+            var validated = true;
+            var txtf = $("#txtFirstName");
+            if (txtf.val() == "" || txtf.val() == null) {
+                // $("#errorfname").innerText = ('you must enter firstname');
+                document.getElementById("errorfname").style.color = 'red';
+                document.getElementById("errorfname").style.visibility = "visible";
+                txtf.focus();
+                validated = false;
+            }
+            else {
+                document.getElementById("errorfname").style.visibility = "hidden";
+                validated = true;
+            }
+
+            var txtl = $("#txtLastName");
+            if (txtl.val() == "" || txtl.val() == null) {
+                // $("#errorfname").innerText = ('you must enter firstname');
+                document.getElementById("errorlname").style.visibility = "visible";
+                txtl.focus();
+                validated = false;
+            }
+            else {
+                document.getElementById("errorlname").style.visibility = "hidden";
+                validated = true;
+            }
+
+            var txtemail = $("#txtEmail");
+            if (txtemail.val() == "" || txtemail.val() == null) {
+                // $("#errorfname").innerText = ('you must enter firstname');
+                document.getElementById("erroremail").style.color = 'red';
+                document.getElementById("erroremail").style.visibility = "visible";
+                txtf.focus();
+                validated = false;
+            }
+            else {
+                document.getElementById("erroremail").style.visibility = "hidden";
+                validated = true;
+            }
+            //
+
+
+
+
+
+
+            var txtphone = $("#txtPhoneNo");
+            if (txtphone.val() == "" || txtphone.val() == null) {
+                // $("#errorfname").innerText = ('you must enter firstname');
+                document.getElementById("errorphone").style.color = 'red';
+                document.getElementById("errorphone").style.visibility = "visible";
+                txtf.focus();
+                validated = false;
+            }
+            else {
+                document.getElementById("errorphone").style.visibility = "hidden";
+                validated = true;
+            }
+            return validated;
+        };
+
+        //Edit event handler.
+        $("body").on("click", "#tblCustomers .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#tblCustomers .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+            var _contact = {};
+            _contact.ContactId = row.find(".ContactId").find("span").html();
+            _contact.FirstName = row.find(".FirstName").find("span").html();
+            _contact.LastName = row.find(".LastName").find("span").html();
+            _contact.Email = row.find(".Email").find("span").html();
+            _contact.PhoneNo = row.find(".PhoneNo").find("span").html();
+            //_contact.Status = row.find(".Status").find("span").html();  
+            _contact.Status = true;
+            $.ajax({
+                type: "PUT",
+                //url: "/api/ContactsAPI/UpdateCustomer",
+                url: "/api/ContactsAPI",
+                data: JSON.stringify(_contact),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    if (r == true) {
+                        alert("Contact updated successfully");
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Unable to update contact');
+                }
+
+            });
+        });
+
+        //Cancel event handler.
+        $("body").on("click", "#tblCustomers .Cancel", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    input.val(span.html());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Update").hide();
+            $(this).hide();
+        });
+
+        //Delete event handler.
+        $("body").on("click", "#tblCustomers .Delete", function () {
+            if (confirm("Do you want to delete this row?")) {
+                var row = $(this).closest("tr");
+                var _contact = {};
+                _contact.ContactId = row.find("span").html();
+                $.ajax({
+                    type: "Delete",
+                    //  url: "/api/ContactsAPI/DeleteCustomer",
+                    url: "/api/ContactsAPI",
+                    data: JSON.stringify(_contact),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        row.remove();
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Unable to delete contact');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
